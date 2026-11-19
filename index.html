@@ -1,360 +1,732 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b18">
-<title>NOVARA AI | Learn Without Limits</title>
+<meta name="theme-color" content="#080810">
+<title>NOVARA AI — Learn Beyond Limits</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg:#080810;
+  --panel:#11111e;
+  --purple:#9b5cff;
+  --blue:#36cfff;
+  --text:#f6f3ff;
+  --muted:#9291a8;
+  --border:rgba(255,255,255,.09);
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#080b18;
---card:#11182b;
---purple:#8875ff;
---cyan:#42d9d0;
---white:#f6f7ff;
---muted:#a1abc1;
-}
+
+html{scroll-behavior:smooth}
+
 body{
-background:var(--bg);
-color:var(--white);
-font-family:Arial,sans-serif;
-line-height:1.6;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,sans-serif;
+  overflow-x:hidden;
 }
-button,a{cursor:pointer;font:inherit}
-a{text-decoration:none;color:inherit}
-.container{width:90%;max-width:1150px;margin:auto}
+
+body:before{
+  content:"";
+  position:fixed;
+  width:500px;
+  height:500px;
+  background:#742dff;
+  filter:blur(180px);
+  opacity:.17;
+  top:-220px;
+  left:-180px;
+  pointer-events:none;
+}
+
+body:after{
+  content:"";
+  position:fixed;
+  width:400px;
+  height:400px;
+  background:#008dff;
+  filter:blur(180px);
+  opacity:.12;
+  bottom:-200px;
+  right:-150px;
+  pointer-events:none;
+}
+
+button{font-family:inherit;cursor:pointer}
+
+.container{
+  width:min(1150px,92%);
+  margin:auto;
+  position:relative;
+  z-index:1;
+}
 
 /* NAVIGATION */
-header{
-height:75px;display:flex;align-items:center;
-justify-content:space-between;
-border-bottom:1px solid #ffffff15;
+
+nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:23px 0;
+  border-bottom:1px solid var(--border);
 }
-.logo{font-size:24px;font-weight:900;letter-spacing:1px}
-.logo span{color:var(--purple)}
-.navlinks{display:flex;gap:25px;color:var(--muted);font-size:14px}
-.navlinks a:hover{color:white}
-.btn{
-border:0;border-radius:12px;padding:13px 21px;
-background:linear-gradient(110deg,#917bff,#6154e8);
-color:white;font-weight:bold;
+
+.logo{
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:2px;
+  background:linear-gradient(90deg,#fff,#a66cff,#3bd6ff);
+  -webkit-background-clip:text;
+  color:transparent;
 }
-.menu{display:none;background:none;color:white;border:0;font-size:25px}
+
+.nav-links{
+  display:flex;
+  gap:28px;
+  align-items:center;
+}
+
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  transition:.3s;
+}
+
+.nav-links a:hover{color:white}
+
+.nav-btn{
+  background:linear-gradient(100deg,var(--purple),#586cff);
+  border:0;
+  color:white;
+  padding:12px 19px;
+  border-radius:10px;
+  font-weight:700;
+}
 
 /* HERO */
-.hero{
-padding:85px 0;
-display:grid;grid-template-columns:1fr 1fr;
-gap:45px;align-items:center;
-}
-.label{
-color:var(--cyan);font-size:12px;
-letter-spacing:3px;font-weight:bold;
-}
-h1{
-font-size:clamp(42px,6vw,68px);
-line-height:1.1;margin:20px 0;
-}
-.gradient{
-background:linear-gradient(90deg,#a99aff,#4bdcd2);
-color:transparent;background-clip:text;
-}
-.hero p{color:var(--muted);font-size:17px}
-.hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:28px}
-.outline{
-padding:13px 20px;border:1px solid #343d59;
-border-radius:12px;background:transparent;color:white;
-}
-.stats{display:flex;gap:30px;margin-top:35px}
-.stat strong{display:block;font-size:22px}
-.stat small{color:var(--muted)}
 
-/* HERO VISUAL */
-.visual{
-background:linear-gradient(145deg,#171e38,#101426);
-border:1px solid #343b61;
-padding:25px;border-radius:25px;
-box-shadow:0 20px 80px #6354e522;
+.hero{
+  min-height:590px;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:55px;
+  align-items:center;
+  padding:75px 0;
 }
-.visual-top{display:flex;justify-content:space-between;margin-bottom:25px}
-.status{color:var(--cyan);font-size:12px}
-.lesson{
-background:#202747;padding:18px;border-radius:15px;
-margin-bottom:15px;
+
+.tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 14px;
+  border:1px solid rgba(155,92,255,.35);
+  border-radius:30px;
+  color:#c8a7ff;
+  background:rgba(155,92,255,.08);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1px;
 }
-.lesson small{color:var(--cyan)}
-.lesson h3{margin:7px 0}
-.progress{height:7px;background:#303954;border-radius:10px;margin-top:13px}
-.progress div{height:100%;width:75%;background:var(--cyan);border-radius:10px}
-.ai-answer{
-padding:17px;background:#111a2c;border-radius:15px;
-color:#cbd5e9;font-size:14px;
+
+.hero h1{
+  font-size:clamp(43px,6vw,72px);
+  line-height:1.08;
+  letter-spacing:-3px;
+  margin:25px 0;
+}
+
+.gradient{
+  background:linear-gradient(100deg,#a96cff,#4acfff);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.9;
+  max-width:490px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:14px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
+.primary-btn{
+  padding:15px 23px;
+  border:0;
+  border-radius:11px;
+  color:white;
+  font-weight:800;
+  background:linear-gradient(110deg,#9655ff,#536fff);
+  box-shadow:0 8px 35px rgba(127,70,255,.3);
+}
+
+.secondary-btn{
+  padding:15px 23px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:#ffffff08;
+  color:white;
+}
+
+/* DASHBOARD PREVIEW */
+
+.dashboard{
+  padding:23px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:22px;
+  background:linear-gradient(145deg,#171528,#101321);
+  box-shadow:0 25px 90px #0008;
+  animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+.dash-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+}
+
+.dash-title{font-size:15px;font-weight:800}
+
+.online{
+  font-size:10px;
+  color:#69e6ac;
+  background:#69e6ac15;
+  padding:7px 10px;
+  border-radius:20px;
+}
+
+.welcome{
+  padding:22px;
+  border-radius:16px;
+  background:linear-gradient(120deg,#5725a5,#173b77);
+  margin-bottom:17px;
+}
+
+.welcome small{color:#d4c4ff}
+
+.welcome h3{
+  margin-top:9px;
+  font-size:22px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+.stat{
+  padding:17px;
+  background:#ffffff08;
+  border:1px solid var(--border);
+  border-radius:14px;
+}
+
+.stat small{color:var(--muted);font-size:11px}
+
+.stat h2{
+  font-size:25px;
+  margin-top:9px;
+}
+
+.progress{
+  height:6px;
+  background:#ffffff18;
+  border-radius:10px;
+  margin-top:12px;
+  overflow:hidden;
+}
+
+.progress span{
+  display:block;
+  width:75%;
+  height:100%;
+  background:linear-gradient(90deg,#a35aff,#36cfff);
+  border-radius:10px;
+}
+
+.ai-status{
+  margin-top:16px;
+  padding:15px;
+  background:#9b5cff12;
+  border:1px solid #9b5cff35;
+  border-radius:13px;
+  font-size:12px;
+  color:#d9c3ff;
 }
 
 /* SECTIONS */
+
 section{padding:65px 0}
-.section-title{text-align:center;margin-bottom:35px}
-.section-title h2{font-size:34px;margin:10px 0}
-.section-title p{color:var(--muted)}
-.cards{
-display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
-}
-.card{
-background:linear-gradient(145deg,#151d33,#101626);
-border:1px solid #29344f;border-radius:18px;padding:24px;
-transition:.25s;
-}
-.card:hover{transform:translateY(-5px);border-color:var(--purple)}
-.icon{font-size:27px}
-.card h3{margin:13px 0 7px}
-.card p{color:var(--muted);font-size:14px}
 
-/* DASHBOARD */
-.dashboard{
-background:linear-gradient(130deg,#171a3a,#102c35);
-border:1px solid #45446e;border-radius:24px;
-padding:35px;
+.section-heading{
+  text-align:center;
+  margin-bottom:40px;
 }
-.dashboard h2{font-size:30px;margin:10px 0}
-.dashboard p{color:var(--muted)}
-.dashboard-grid{
-display:grid;grid-template-columns:repeat(2,1fr);
-gap:15px;margin-top:25px;
-}
-.dash-item{
-background:#ffffff0c;border:1px solid #ffffff18;
-padding:20px;border-radius:15px;
-}
-.dash-item span{font-size:24px}
 
-/* AI CHAT */
-.chatbox{
-max-width:750px;margin:auto;
-background:var(--card);border:1px solid #303b5a;
-border-radius:22px;padding:25px;
+.section-heading h2{
+  font-size:35px;
+  margin-bottom:13px;
 }
-.modes{display:flex;gap:10px;margin:20px 0}
-.mode{
-flex:1;padding:13px;border:1px solid #39445f;
-background:#192139;color:white;border-radius:12px;
+
+.section-heading p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.8;
 }
-.mode.active{border-color:var(--purple);background:#30295c}
-.messages{
-height:250px;overflow-y:auto;
-background:#090e1d;border-radius:15px;
-padding:18px;margin-bottom:15px;
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
 }
-.message{margin-bottom:15px;padding:12px;border-radius:12px}
-.user{background:#29234e;margin-left:20px}
-.bot{background:#17223a;margin-right:20px}
-.chat-input{display:flex;gap:10px}
+
+.feature{
+  padding:27px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:linear-gradient(145deg,#151525,#0e0e19);
+  transition:.3s;
+}
+
+.feature:hover{
+  transform:translateY(-7px);
+  border-color:#995bff80;
+}
+
+.feature-icon{
+  width:47px;
+  height:47px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:linear-gradient(135deg,#8c48ff35,#28bfff25);
+  font-size:23px;
+  margin-bottom:20px;
+}
+
+.feature h3{font-size:17px;margin-bottom:12px}
+
+.feature p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+}
+
+/* AI TUTOR */
+
+.tutor{
+  max-width:760px;
+  margin:auto;
+  padding:25px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:#11111e;
+}
+
+.tutor-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.mode-buttons{
+  display:flex;
+  gap:8px;
+}
+
+.mode-buttons button{
+  background:#ffffff0b;
+  border:1px solid var(--border);
+  padding:9px 13px;
+  border-radius:9px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.mode-buttons button.active{
+  color:white;
+  background:#8c4dff35;
+  border-color:#a46aff;
+}
+
+.chat-area{
+  min-height:190px;
+  max-height:300px;
+  overflow-y:auto;
+  padding:15px;
+  background:#090912;
+  border-radius:13px;
+  margin-bottom:14px;
+}
+
+.message{
+  padding:13px 15px;
+  border-radius:12px;
+  margin-bottom:12px;
+  max-width:90%;
+  font-size:13px;
+  line-height:1.7;
+  background:#ffffff0c;
+}
+
+.message.user{
+  margin-left:auto;
+  background:#7943cf35;
+}
+
+.chat-input{
+  display:flex;
+  gap:10px;
+}
+
 .chat-input input{
-min-width:0;flex:1;padding:15px;
-background:#090e1d;border:1px solid #39445f;
-border-radius:12px;color:white;
+  flex:1;
+  min-width:0;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#080810;
+  color:white;
+  outline:none;
+}
+
+.chat-input input:focus{
+  border-color:#9b5cff;
+}
+
+.send-btn{
+  padding:0 19px;
+  background:linear-gradient(110deg,#9655ff,#536fff);
+  border:0;
+  border-radius:10px;
+  color:white;
+  font-weight:700;
+}
+
+/* MISSION */
+
+.mission{
+  text-align:center;
+  padding:65px 25px;
+  border:1px solid #9b5cff30;
+  border-radius:22px;
+  background:linear-gradient(120deg,#30145b55,#103b6155);
+}
+
+.mission h2{
+  font-size:34px;
+  margin-bottom:17px;
+}
+
+.mission p{
+  color:var(--muted);
+  max-width:620px;
+  margin:auto;
+  line-height:1.9;
+  font-size:14px;
 }
 
 /* FOOTER */
+
 footer{
-border-top:1px solid #ffffff15;
-padding:30px 0;color:var(--muted);
-text-align:center;font-size:13px;
+  border-top:1px solid var(--border);
+  padding:28px 0;
+  margin-top:60px;
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+  line-height:2;
 }
 
-@media(max-width:750px){
-.navlinks{display:none}
-.menu{display:block}
-.hero{grid-template-columns:1fr;padding:55px 0;gap:30px}
-.cards{grid-template-columns:1fr 1fr}
-.stats{gap:18px}
+/* MOBILE */
+
+@media(max-width:800px){
+  .nav-links{display:none}
+  .hero{
+    grid-template-columns:1fr;
+    gap:35px;
+    padding:55px 0;
+  }
+  .hero h1{letter-spacing:-2px}
+  .features{grid-template-columns:1fr}
+  .dashboard{max-width:500px;width:100%;margin:auto}
+  .section-heading h2{font-size:28px}
+  .tutor-header{align-items:flex-start;flex-direction:column}
+  .mission h2{font-size:27px}
 }
-@media(max-width:500px){
-.cards{grid-template-columns:1fr}
-.dashboard-grid{grid-template-columns:1fr}
-.hero h1{font-size:45px}
-.section-title h2{font-size:27px}
-.chat-input{flex-direction:column}
+
+@media(max-width:400px){
+  .hero h1{font-size:41px}
+  .dashboard{padding:15px}
+  .feature{padding:22px}
+  .chat-input{gap:6px}
+  .send-btn{padding:0 12px}
 }
 </style>
 </head>
 
 <body>
 
-<header class="container">
-<a class="logo" href="#">NOVARA<span> AI</span></a>
-<nav class="navlinks">
-<a href="#home">Home</a>
-<a href="#features">Features</a>
-<a href="#dashboard">Dashboard</a>
-<a href="#tutor">AI Tutor</a>
-</nav>
-<button class="menu" onclick="document.getElementById('features').scrollIntoView()">☰</button>
-</header>
+<div class="container">
 
-<main>
+<nav>
+  <div class="logo">NOVARA AI</div>
+
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#tutor">AI Tutor</a>
+    <a href="#about">About</a>
+  </div>
+
+  <button class="nav-btn" onclick="document.getElementById('tutor').scrollIntoView({behavior:'smooth'})">
+    Explore AI
+  </button>
+</nav>
 
 <!-- HERO -->
-<div class="container hero" id="home">
-<div>
-<div class="label">THE FUTURE OF LEARNING</div>
-<h1>Learn Smarter.<br><span class="gradient">Grow Faster.</span></h1>
-<p>Your personal AI-powered learning companion. Understand difficult concepts, practice new skills and build your future with NOVARA AI.</p>
 
-<div class="hero-actions">
-<a class="btn" href="#tutor">Explore AI Tutor →</a>
-<a class="outline" href="#features">Discover More</a>
-</div>
+<div class="hero" id="home">
 
-<div class="stats">
-<div class="stat"><strong>01</strong><small>Personal learning</small></div>
-<div class="stat"><strong>24/7</strong><small>Learning access</small></div>
-<div class="stat"><strong>∞</strong><small>Possibilities</small></div>
-</div>
-</div>
+  <div>
+    <div class="tag">✦ YOUR PERSONAL LEARNING WORLD</div>
 
-<div class="visual">
-<div class="visual-top">
-<strong>✦ NOVARA AI</strong>
-<span class="status">● Learning active</span>
-</div>
+    <h1>
+      Learn Beyond<br>
+      <span class="gradient">Limits.</span>
+    </h1>
 
-<div class="lesson">
-<small>YOUR LEARNING SPACE</small>
-<h3>Today's Learning Goal</h3>
-<p>Understand something new today.</p>
-<div class="progress"><div></div></div>
-</div>
+    <p>
+      Meet a smarter way to learn. Explore concepts, ask questions
+      and grow your knowledge with your personal AI learning companion.
+    </p>
 
-<div class="ai-answer">
-<strong>✦ Your AI Learning Companion</strong>
-<p style="margin-top:10px">Hello! I'm here to help you understand difficult topics, solve doubts and learn step by step.</p>
-</div>
-</div>
+    <div class="hero-actions">
+      <button class="primary-btn" onclick="document.getElementById('tutor').scrollIntoView({behavior:'smooth'})">
+        Start Learning →
+      </button>
+
+      <button class="secondary-btn" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+        Explore Features
+      </button>
+    </div>
+  </div>
+
+  <div class="dashboard">
+
+    <div class="dash-top">
+      <div class="dash-title">Your Learning Space</div>
+      <div class="online">● ONLINE DEMO</div>
+    </div>
+
+    <div class="welcome">
+      <small>WELCOME TO NOVARA</small>
+      <h3>Think. Learn. Evolve.</h3>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <small>Learning Progress</small>
+        <h2>75%</h2>
+        <div class="progress"><span></span></div>
+      </div>
+
+      <div class="stat">
+        <small>Learning Mode</small>
+        <h2>AI ✦</h2>
+        <div class="progress"><span style="width:90%"></span></div>
+      </div>
+    </div>
+
+    <div class="ai-status">
+      ✨ Your personal learning experience starts here.
+    </div>
+
+  </div>
+
 </div>
 
 <!-- FEATURES -->
-<section class="container" id="features">
-<div class="section-title">
-<div class="label">WHAT WE OFFER</div>
-<h2>Everything You Need to Learn</h2>
-<p>One platform. Multiple ways to grow.</p>
-</div>
 
-<div class="cards">
-<div class="card"><div class="icon">✦</div><h3>AI Personal Teacher</h3><p>Learn difficult subjects with simple explanations.</p></div>
-<div class="card"><div class="icon">💬</div><h3>AI Doubt Solver</h3><p>Ask questions and understand answers step by step.</p></div>
-<div class="card"><div class="icon">📚</div><h3>Smart Notes</h3><p>Create useful notes and summaries for revision.</p></div>
-<div class="card"><div class="icon">🎯</div><h3>Practice & Quizzes</h3><p>Test your knowledge and improve your skills.</p></div>
-<div class="card"><div class="icon">📅</div><h3>Study Planner</h3><p>Organise your daily learning goals.</p></div>
-<div class="card"><div class="icon">🌍</div><h3>Language Learning</h3><p>Learn and explore different languages.</p></div>
-</div>
-</section>
+<section id="features">
 
-<!-- DASHBOARD -->
-<section class="container" id="dashboard">
-<div class="dashboard">
-<div class="label">YOUR PERSONAL SPACE</div>
-<h2>Your Learning Journey Starts Here.</h2>
-<p>A single place to explore, learn and improve every day.</p>
+  <div class="section-heading">
+    <h2>Everything You Need to <span class="gradient">Grow</span></h2>
+    <p>A smarter learning experience designed around you.</p>
+  </div>
 
-<div class="dashboard-grid">
-<div class="dash-item"><span>🎓</span><h3>AI Teacher</h3><p>Learn step by step.</p></div>
-<div class="dash-item"><span>📖</span><h3>My Notes</h3><p>Organise your knowledge.</p></div>
-<div class="dash-item"><span>🧠</span><h3>My Practice</h3><p>Test what you learned.</p></div>
-<div class="dash-item"><span>📈</span><h3>My Progress</h3><p>Track your improvement.</p></div>
-</div>
-</div>
+  <div class="features">
+
+    <div class="feature">
+      <div class="feature-icon">🧠</div>
+      <h3>AI Learning Assistant</h3>
+      <p>Explore concepts and get help understanding difficult topics through a simple learning interface.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🎓</div>
+      <h3>Personal AI Teacher</h3>
+      <p>Learn at your own pace with a teaching experience designed to make concepts easier to understand.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🌍</div>
+      <h3>Learn Your Way</h3>
+      <p>Build a learning experience around your interests, goals and preferred language.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">⚡</div>
+      <h3>Simple Experience</h3>
+      <p>A clean and focused interface that helps you spend more time learning.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🚀</div>
+      <h3>Grow Every Day</h3>
+      <p>Discover new ideas, develop skills and keep moving towards your goals.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">💡</div>
+      <h3>Explore Knowledge</h3>
+      <p>Stay curious and explore topics that help you understand the world around you.</p>
+    </div>
+
+  </div>
 </section>
 
 <!-- AI TUTOR -->
-<section class="container" id="tutor">
-<div class="section-title">
-<div class="label">MEET YOUR AI COMPANION</div>
-<h2>Talk to NOVARA AI</h2>
-<p>Choose your learning mode and try the interface.</p>
-</div>
 
-<div class="chatbox">
-<h2>✦ NOVARA AI</h2>
-<div class="modes">
-<button class="mode active" id="chatMode" onclick="setMode('chat')">💬 AI Chat</button>
-<button class="mode" id="teacherMode" onclick="setMode('teacher')">🎓 AI Teacher</button>
-</div>
+<section id="tutor">
 
-<div id="modeTitle"><h3>AI Chat Mode</h3></div>
+  <div class="section-heading">
+    <h2>Meet Your <span class="gradient">AI Companion</span></h2>
+    <p>Ask a question and explore the NOVARA learning demo.</p>
+  </div>
 
-<div class="messages" id="messages">
-<div class="message bot">Welcome to NOVARA AI! 👋<br>What would you like to learn today?</div>
-</div>
+  <div class="tutor">
 
-<div class="chat-input">
-<input id="question" placeholder="Ask NOVARA anything...">
-<button class="btn" onclick="sendMessage()">Send ➤</button>
-</div>
-<p style="font-size:11px;margin-top:12px">Demo version: Real AI connection is not active yet.</p>
-</div>
+    <div class="tutor-header">
+      <div>
+        <h3>NOVARA AI Assistant</h3>
+        <small style="color:#9291a8">Your learning companion</small>
+      </div>
+
+      <div class="mode-buttons">
+        <button class="active" id="chatMode" onclick="setMode('chat')">AI Chat</button>
+        <button id="teacherMode" onclick="setMode('teacher')">AI Teacher</button>
+      </div>
+    </div>
+
+    <div class="chat-area" id="chatArea">
+      <div class="message">
+        👋 Hello! Welcome to NOVARA AI. What would you like to learn today?
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input id="userInput" type="text" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendMessage()">
+      <button class="send-btn" onclick="sendMessage()">Send ↑</button>
+    </div>
+
+    <p style="color:#77768c;font-size:10px;margin-top:12px">
+      Demo interface · Live AI connection is not configured yet.
+    </p>
+
+  </div>
 </section>
 
 <!-- ABOUT -->
-<section class="container">
-<div class="section-title">
-<div class="label">OUR VISION</div>
-<h2>Education Without Limits.</h2>
-<p>Our mission is to make learning more understandable, accessible and engaging for students everywhere.</p>
-<br>
-<h3>Founded by SIJWAN MIR</h3>
-</div>
+
+<section id="about">
+
+  <div class="mission">
+    <div class="tag">✦ OUR MISSION</div>
+    <h2 style="margin-top:22px">Knowledge Without <span class="gradient">Limits.</span></h2>
+
+    <p>
+      NOVARA AI is built around one simple idea:
+      learning should be accessible, engaging and easier to understand.
+      Our mission is to help curious minds explore their potential
+      and build a better future through knowledge.
+    </p>
+
+    <p style="margin-top:25px;color:#c5a5ff;font-weight:700">
+      Founded by SIJWAN MIR
+    </p>
+  </div>
+
 </section>
 
-</main>
-
 <footer>
-<strong>NOVARA AI</strong>
-<p>Learn Smarter. Grow Faster.</p>
-<p>© 2026 NOVARA AI. All rights reserved.</p>
+  <div class="logo">NOVARA AI</div>
+  <p>Learn Smarter. Grow Faster.</p>
+  <p>© 2026 NOVARA AI. All rights reserved.</p>
 </footer>
 
+</div>
+
 <script>
-let currentMode="chat";
+let currentMode = "chat";
 
 function setMode(mode){
-currentMode=mode;
-document.getElementById("chatMode").classList.toggle("active",mode==="chat");
-document.getElementById("teacherMode").classList.toggle("active",mode==="teacher");
-document.getElementById("modeTitle").innerHTML=
-"<h3>"+(mode==="chat"?"AI Chat Mode":"AI Teacher Mode")+"</h3>";
+  currentMode = mode;
+
+  document.getElementById("chatMode").classList.toggle("active",mode==="chat");
+  document.getElementById("teacherMode").classList.toggle("active",mode==="teacher");
+
+  const area = document.getElementById("chatArea");
+
+  area.innerHTML = mode==="chat"
+    ? '<div class="message">💬 AI Chat mode selected. What would you like to explore?</div>'
+    : '<div class="message">🎓 AI Teacher mode selected. Tell me which topic you want to understand.</div>';
 }
 
 function sendMessage(){
-const input=document.getElementById("question");
-const messages=document.getElementById("messages");
-const question=input.value.trim();
-if(!question)return;
+  const input = document.getElementById("userInput");
+  const area = document.getElementById("chatArea");
+  const question = input.value.trim();
 
-const user=document.createElement("div");
-user.className="message user";
-user.textContent="You: "+question;
-messages.appendChild(user);
+  if(!question)return;
 
-const bot=document.createElement("div");
-bot.className="message bot";
-bot.textContent=currentMode==="chat"
-?"NOVARA AI: This is a demo. Connect an AI backend to receive real answers."
-:"NOVARA AI Teacher: Your step-by-step AI teacher will be available after the AI connection is added.";
+  const userMessage = document.createElement("div");
+  userMessage.className = "message user";
+  userMessage.textContent = question;
+  area.appendChild(userMessage);
 
-messages.appendChild(bot);
-input.value="";
-messages.scrollTop=messages.scrollHeight;
+  const reply = document.createElement("div");
+  reply.className = "message";
+
+  reply.textContent = currentMode==="teacher"
+    ? "🎓 Teacher demo: Your question is interesting! A real AI connection will be needed to explain this topic in detail."
+    : "✨ NOVARA demo: Thanks for your question! A real AI connection will be needed to generate a live answer.";
+
+  area.appendChild(reply);
+
+  input.value="";
+  area.scrollTop=area.scrollHeight;
 }
-
-document.getElementById("question").addEventListener("keydown",function(e){
-if(e.key==="Enter")sendMessage();
-});
 </script>
 
 </body>
   </html>
-  
