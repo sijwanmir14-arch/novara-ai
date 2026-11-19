@@ -4,331 +4,357 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090b12">
-<title>NOVARA AI — Your Personal Learning World</title>
+<meta name="theme-color" content="#080b18">
+<title>NOVARA AI | Learn Without Limits</title>
+
 <style>
+*{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#080a12;--panel:#111626;--panel2:#171e31;--line:#29334a;
-  --text:#f5f7ff;--muted:#a4aec4;--purple:#8b7cff;--cyan:#55ddcf;
-  --glow:rgba(139,124,255,.22)
+--bg:#080b18;
+--card:#11182b;
+--purple:#8875ff;
+--cyan:#42d9d0;
+--white:#f6f7ff;
+--muted:#a1abc1;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{
-  margin:0;background:
-  radial-gradient(ellipse at 78% 0%,rgba(104,76,210,.22),transparent 34%),
-  radial-gradient(ellipse at 5% 55%,rgba(38,174,174,.08),transparent 32%),var(--bg);
-  color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6
+background:var(--bg);
+color:var(--white);
+font-family:Arial,sans-serif;
+line-height:1.6;
 }
-a{color:inherit;text-decoration:none}
-button,select,textarea{font:inherit}
-.wrap{width:min(1120px,92%);margin:auto}
-.nav{
-  min-height:78px;display:flex;align-items:center;justify-content:space-between;
-  gap:20px;border-bottom:1px solid rgba(255,255,255,.09)
+button,a{cursor:pointer;font:inherit}
+a{text-decoration:none;color:inherit}
+.container{width:90%;max-width:1150px;margin:auto}
+
+/* NAVIGATION */
+header{
+height:75px;display:flex;align-items:center;
+justify-content:space-between;
+border-bottom:1px solid #ffffff15;
 }
-.brand{font-size:21px;font-weight:900;letter-spacing:1.8px;white-space:nowrap}
-.brand span{color:var(--purple)}
-.navlinks{display:flex;align-items:center;gap:28px;color:var(--muted);font-size:14px}
+.logo{font-size:24px;font-weight:900;letter-spacing:1px}
+.logo span{color:var(--purple)}
+.navlinks{display:flex;gap:25px;color:var(--muted);font-size:14px}
 .navlinks a:hover{color:white}
-.navbtn,.primary{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  background:linear-gradient(110deg,#927fff,#6254df);border:1px solid #a99cff55;
-  color:white;padding:13px 20px;border-radius:14px;font-weight:750;cursor:pointer;
-  box-shadow:0 10px 30px rgba(105,83,220,.2);transition:transform .2s,filter .2s
+.btn{
+border:0;border-radius:12px;padding:13px 21px;
+background:linear-gradient(110deg,#917bff,#6154e8);
+color:white;font-weight:bold;
 }
-.navbtn:hover,.primary:hover{transform:translateY(-2px);filter:brightness(1.08)}
-.hero{padding:88px 0 76px;display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
-.eyebrow{color:#bcb3ff;text-transform:uppercase;letter-spacing:2.5px;font-size:11px;font-weight:850}
-.hero h1{font-size:clamp(43px,6.5vw,74px);line-height:1.04;letter-spacing:-3.4px;margin:18px 0 20px}
-.gradient{background:linear-gradient(95deg,#b0a5ff 5%,#70c8ed 55%,#58e0cc);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--muted);font-size:17px;max-width:570px;margin:0}
-.actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
-.secondary{
-  display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;
-  border:1px solid var(--line);background:rgba(255,255,255,.035);color:white;
-  border-radius:14px;font-weight:700;transition:background .2s,border .2s
+.menu{display:none;background:none;color:white;border:0;font-size:25px}
+
+/* HERO */
+.hero{
+padding:85px 0;
+display:grid;grid-template-columns:1fr 1fr;
+gap:45px;align-items:center;
 }
-.secondary:hover{background:rgba(255,255,255,.08);border-color:#59627a}
-.tiny{font-size:12px;color:var(--muted);margin-top:17px}
-.preview{
-  background:linear-gradient(145deg,rgba(29,35,59,.97),rgba(14,19,32,.98));
-  border:1px solid #514b7c;border-radius:27px;padding:24px;
-  box-shadow:0 28px 90px #0009,0 0 55px var(--glow);position:relative;overflow:hidden
+.label{
+color:var(--cyan);font-size:12px;
+letter-spacing:3px;font-weight:bold;
 }
-.preview:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:#8875ff18;filter:blur(10px);right:-90px;top:-100px}
-.previewtop{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px;position:relative}
-.previewtop b{font-size:16px}
-.tag{font-size:11px;color:#c7cde0;background:#ffffff0b;border:1px solid #ffffff18;padding:7px 11px;border-radius:30px;white-space:nowrap}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);display:inline-block;margin-right:7px;box-shadow:0 0 12px var(--cyan)}
-.question{background:#292344;border:1px solid #5a4d91;padding:15px;border-radius:15px;margin:15px 0 12px 30px;font-size:13px}
-.answer{display:flex;gap:11px;background:#192235;padding:15px;border:1px solid #ffffff0b;border-radius:15px;font-size:13px;color:#dce4f4}
-.avatar{flex:none;width:31px;height:31px;border-radius:10px;background:linear-gradient(135deg,var(--purple),var(--cyan));display:grid;place-items:center;font-size:13px;font-weight:900;color:#080b14}
-.minirow{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
-.mini{background:#ffffff08;border:1px solid #ffffff12;padding:12px;border-radius:13px;font-size:11px;color:var(--muted)}
-.mini b{display:block;font-size:13px;color:#edf0fa;margin-top:4px}
-section{padding:58px 0}
-.sectionhead{text-align:center;max-width:680px;margin:0 auto 32px}
-.sectionhead h2{font-size:clamp(27px,4vw,36px);letter-spacing:-1.2px;line-height:1.2;margin:10px 0}
-.sectionhead p{color:var(--muted);margin:0}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+h1{
+font-size:clamp(42px,6vw,68px);
+line-height:1.1;margin:20px 0;
+}
+.gradient{
+background:linear-gradient(90deg,#a99aff,#4bdcd2);
+color:transparent;background-clip:text;
+}
+.hero p{color:var(--muted);font-size:17px}
+.hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:28px}
+.outline{
+padding:13px 20px;border:1px solid #343d59;
+border-radius:12px;background:transparent;color:white;
+}
+.stats{display:flex;gap:30px;margin-top:35px}
+.stat strong{display:block;font-size:22px}
+.stat small{color:var(--muted)}
+
+/* HERO VISUAL */
+.visual{
+background:linear-gradient(145deg,#171e38,#101426);
+border:1px solid #343b61;
+padding:25px;border-radius:25px;
+box-shadow:0 20px 80px #6354e522;
+}
+.visual-top{display:flex;justify-content:space-between;margin-bottom:25px}
+.status{color:var(--cyan);font-size:12px}
+.lesson{
+background:#202747;padding:18px;border-radius:15px;
+margin-bottom:15px;
+}
+.lesson small{color:var(--cyan)}
+.lesson h3{margin:7px 0}
+.progress{height:7px;background:#303954;border-radius:10px;margin-top:13px}
+.progress div{height:100%;width:75%;background:var(--cyan);border-radius:10px}
+.ai-answer{
+padding:17px;background:#111a2c;border-radius:15px;
+color:#cbd5e9;font-size:14px;
+}
+
+/* SECTIONS */
+section{padding:65px 0}
+.section-title{text-align:center;margin-bottom:35px}
+.section-title h2{font-size:34px;margin:10px 0}
+.section-title p{color:var(--muted)}
+.cards{
+display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+}
 .card{
-  background:linear-gradient(145deg,#171e30,#101522);border:1px solid var(--line);
-  border-radius:19px;padding:23px;transition:transform .2s,border-color .2s,box-shadow .2s
+background:linear-gradient(145deg,#151d33,#101626);
+border:1px solid #29344f;border-radius:18px;padding:24px;
+transition:.25s;
 }
-.card:hover{transform:translateY(-4px);border-color:#665ba1;box-shadow:0 14px 35px #0004}
-.ico{width:45px;height:45px;display:grid;place-items:center;background:#8b7cff20;border:1px solid #8b7cff4d;border-radius:14px;font-size:21px}
-.card h3{margin:15px 0 6px;font-size:17px}
-.card p{margin:0;color:var(--muted);font-size:13px}
-.startbox{
-  background:linear-gradient(130deg,rgba(29,29,61,.96),rgba(16,39,46,.94));
-  border:1px solid #514b7c;border-radius:25px;padding:32px;
-  display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;
-  box-shadow:0 20px 60px #0004
+.card:hover{transform:translateY(-5px);border-color:var(--purple)}
+.icon{font-size:27px}
+.card h3{margin:13px 0 7px}
+.card p{color:var(--muted);font-size:14px}
+
+/* DASHBOARD */
+.dashboard{
+background:linear-gradient(130deg,#171a3a,#102c35);
+border:1px solid #45446e;border-radius:24px;
+padding:35px;
 }
-.startbox h2{font-size:clamp(27px,4vw,35px);line-height:1.2;letter-spacing:-1px;margin:10px 0}
-.startbox p{color:var(--muted);margin:0}
-.controls{display:grid;gap:13px}
-.controls label{display:block;font-size:12px;color:#c2c9dc;margin-bottom:6px}
-select{
-  width:100%;padding:14px;background:#0d1322;color:white;border:1px solid #35405a;
-  border-radius:12px;outline:none
+.dashboard h2{font-size:30px;margin:10px 0}
+.dashboard p{color:var(--muted)}
+.dashboard-grid{
+display:grid;grid-template-columns:repeat(2,1fr);
+gap:15px;margin-top:25px;
 }
-select:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px #8b7cff22}
-.notice{font-size:12px;color:#b5bfd2;margin-top:1px;min-height:20px}
+.dash-item{
+background:#ffffff0c;border:1px solid #ffffff18;
+padding:20px;border-radius:15px;
+}
+.dash-item span{font-size:24px}
+
+/* AI CHAT */
 .chatbox{
-  background:linear-gradient(145deg,#171e30,#101522);border:1px solid #343d58;
-  border-radius:25px;padding:27px;max-width:760px;margin:25px auto 0;
-  box-shadow:0 20px 65px #0006
+max-width:750px;margin:auto;
+background:var(--card);border:1px solid #303b5a;
+border-radius:22px;padding:25px;
 }
-.chathead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.chatbrand{font-size:23px;font-weight:850;letter-spacing:.4px}
-.chatbrand span{color:var(--purple)}
-.chatstatus{font-size:11px;color:#c3cce0;border:1px solid #ffffff18;background:#ffffff08;padding:6px 10px;border-radius:30px}
-.mode-label{font-size:14px;color:var(--muted);margin:22px 0 10px}
-.modebuttons{display:flex;gap:10px;flex-wrap:wrap}
-.modebutton{
-  padding:10px 15px;border:1px solid #39435e;border-radius:12px;
-  background:#ffffff07;color:#e8ebf5;cursor:pointer;font-weight:650
+.modes{display:flex;gap:10px;margin:20px 0}
+.mode{
+flex:1;padding:13px;border:1px solid #39445f;
+background:#192139;color:white;border-radius:12px;
 }
-.modebutton.active{background:#8b7cff24;border-color:#8b7cff;color:#fff}
-#novaraModeText{font-size:17px;margin:18px 0 12px}
+.mode.active{border-color:var(--purple);background:#30295c}
 .messages{
-  padding:17px;background:#090e19;border:1px solid #252e43;
-  margin:14px 0;border-radius:16px;min-height:90px;max-height:320px;overflow-y:auto;
-  color:#e8ecf7;font-size:14px
+height:250px;overflow-y:auto;
+background:#090e1d;border-radius:15px;
+padding:18px;margin-bottom:15px;
 }
-.messages p{margin:8px 0;overflow-wrap:anywhere}
-.messages .user-message{color:#c6bbff}
-.messages .bot-message{color:#d9e3f4}
-.chatinput{display:grid;gap:12px}
-textarea{
-  width:100%;min-height:105px;resize:vertical;padding:14px;
-  background:#0c1220;color:white;border:1px solid #35405a;border-radius:13px;outline:none
+.message{margin-bottom:15px;padding:12px;border-radius:12px}
+.user{background:#29234e;margin-left:20px}
+.bot{background:#17223a;margin-right:20px}
+.chat-input{display:flex;gap:10px}
+.chat-input input{
+min-width:0;flex:1;padding:15px;
+background:#090e1d;border:1px solid #39445f;
+border-radius:12px;color:white;
 }
-.sendbutton{justify-self:start}
-.chat-note{font-size:11px;color:#929db4;margin-top:11px}
-.footer{
-  border-top:1px solid #ffffff12;padding:26px 0 32px;color:var(--muted);
-  font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap
+
+/* FOOTER */
+footer{
+border-top:1px solid #ffffff15;
+padding:30px 0;color:var(--muted);
+text-align:center;font-size:13px;
 }
-.footer b{color:#f1f3fb}
-@media(max-width:800px){
-  .hero{grid-template-columns:1fr;padding:62px 0 48px;gap:32px}
-  .grid{grid-template-columns:repeat(2,1fr)}
-  .startbox{grid-template-columns:1fr;padding:25px}
-  .navlinks{display:none}
+
+@media(max-width:750px){
+.navlinks{display:none}
+.menu{display:block}
+.hero{grid-template-columns:1fr;padding:55px 0;gap:30px}
+.cards{grid-template-columns:1fr 1fr}
+.stats{gap:18px}
 }
-@media(max-width:520px){
-  .wrap{width:min(100% - 34px,1120px)}
-  .nav{min-height:68px}
-  .brand{font-size:19px}
-  .navbtn{padding:10px 14px;font-size:13px}
-  .hero{padding:48px 0 38px}
-  .hero h1{letter-spacing:-2px}
-  .hero p{font-size:15px}
-  .actions a{width:100%}
-  .preview{padding:16px;border-radius:21px}
-  .previewtop b{font-size:14px}
-  .grid{grid-template-columns:1fr}
-  section{padding:43px 0}
-  .sectionhead{margin-bottom:25px}
-  .startbox{padding:21px;border-radius:20px}
-  .chatbox{padding:19px;border-radius:20px}
-  .chatbrand{font-size:20px}
+@media(max-width:500px){
+.cards{grid-template-columns:1fr}
+.dashboard-grid{grid-template-columns:1fr}
+.hero h1{font-size:45px}
+.section-title h2{font-size:27px}
+.chat-input{flex-direction:column}
 }
 </style>
 </head>
+
 <body>
-<header class="wrap nav">
-  <a class="brand" href="#">NOVARA<span> AI</span></a>
-  <nav class="navlinks" aria-label="Main navigation">
-    <a href="#features">Features</a><a href="#how">How it works</a><a href="#novara-chat">AI Tutor</a>
-  </nav>
-  <a class="navbtn" href="#how">Explore <span aria-hidden="true">↗</span></a>
+
+<header class="container">
+<a class="logo" href="#">NOVARA<span> AI</span></a>
+<nav class="navlinks">
+<a href="#home">Home</a>
+<a href="#features">Features</a>
+<a href="#dashboard">Dashboard</a>
+<a href="#tutor">AI Tutor</a>
+</nav>
+<button class="menu" onclick="document.getElementById('features').scrollIntoView()">☰</button>
 </header>
 
 <main>
-  <div class="wrap hero">
-    <div>
-      <div class="eyebrow">A new way to learn</div>
-      <h1>Your learning.<br><span class="gradient">Your own AI teacher.</span></h1>
-      <p>Learn at your pace, ask questions without hesitation, and build confidence one concept at a time. A learning platform designed for students everywhere.</p>
-      <div class="actions">
-        <a class="primary" href="#novara-chat">Start learning</a>
-        <a class="secondary" href="#features">Discover features</a>
-      </div>
-      <div class="tiny">A first look at the NOVARA AI concept · Built for curious minds</div>
-    </div>
-    <div class="preview" aria-label="Illustrative AI tutor preview">
-      <div class="previewtop"><b>✦ NOVARA AI Tutor</b><span class="tag"><i class="dot"></i>Learning mode</span></div>
-      <div class="tag">EXAMPLE CONVERSATION</div>
-      <div class="question">Can you explain photosynthesis in simple words?</div>
-      <div class="answer"><div class="avatar">N</div><div><b>Let's understand it step by step.</b><br>Plants use sunlight, water, and carbon dioxide to make their own food. Think of a leaf as a tiny food-making factory.</div></div>
-      <div class="minirow">
-        <div class="mini">Learning level<b>Beginner friendly</b></div>
-        <div class="mini">Learning style<b>Step by step</b></div>
-      </div>
-    </div>
-  </div>
 
-  <section id="features" class="wrap">
-    <div class="sectionhead">
-      <div class="eyebrow">One learning space</div>
-      <h2>Everything students need to grow</h2>
-      <p>Start with the essentials, then expand into a complete learning platform.</p>
-    </div>
-    <div class="grid">
-      <article class="card"><div class="ico">✦</div><h3>AI Personal Teacher</h3><p>Clear explanations adapted to a student's level and pace.</p></article>
-      <article class="card"><div class="ico">⌕</div><h3>Doubt Solver</h3><p>Ask questions and get guided, step-by-step help.</p></article>
-      <article class="card"><div class="ico">▤</div><h3>Notes &amp; Summaries</h3><p>Turn lessons into structured revision notes.</p></article>
-      <article class="card"><div class="ico">✓</div><h3>Practice &amp; Tests</h3><p>Try quizzes and see which topics need more practice.</p></article>
-      <article class="card"><div class="ico">◷</div><h3>Study Planner</h3><p>Organise learning goals into manageable study sessions.</p></article>
-      <article class="card"><div class="ico">文</div><h3>Language Learning</h3><p>Support for learning in multiple languages around the world.</p></article>
-    </div>
-  </section>
+<!-- HERO -->
+<div class="container hero" id="home">
+<div>
+<div class="label">THE FUTURE OF LEARNING</div>
+<h1>Learn Smarter.<br><span class="gradient">Grow Faster.</span></h1>
+<p>Your personal AI-powered learning companion. Understand difficult concepts, practice new skills and build your future with NOVARA AI.</p>
 
-  <section id="how" class="wrap">
-    <div class="startbox">
-      <div>
-        <div class="eyebrow">Made for every learner</div>
-        <h2>Choose where your learning journey begins.</h2>
-        <p>Select your study level and preferred language to preview your learning preferences. Account and saved-progress features are not connected yet.</p>
-      </div>
-      <div class="controls">
-        <div><label for="level">Your study level</label>
-          <select id="level">
-            <option>School — Primary</option><option>School — Middle</option><option>School — Secondary</option>
-            <option>Senior Secondary</option><option>College / University</option><option>Independent learner</option>
-          </select>
-        </div>
-        <div><label for="language">Learning language</label>
-          <select id="language">
-            <option>English</option><option>Hindi</option><option>Bengali</option><option>Spanish</option>
-            <option>French</option><option>Arabic</option><option>Portuguese</option><option>Other / choose later</option>
-          </select>
-        </div>
-        <button class="primary" type="button" onclick="previewLearningSpace()">Preview my learning space</button>
-        <div class="notice" id="demoMessage" aria-live="polite">No account needed for this demo preview.</div>
-      </div>
-    </div>
-  </section>
+<div class="hero-actions">
+<a class="btn" href="#tutor">Explore AI Tutor →</a>
+<a class="outline" href="#features">Discover More</a>
+</div>
 
-  <section id="novara-chat" class="wrap">
-    <div class="sectionhead">
-      <div class="eyebrow">Meet your learning companion</div>
-      <h2>Learn with NOVARA AI</h2>
-      <p>Choose a mode and try the current interactive demo.</p>
-    </div>
-    <div class="chatbox">
-      <div class="chathead">
-        <div class="chatbrand">✦ NOVARA<span> AI</span></div>
-        <div class="chatstatus"><i class="dot"></i>Demo mode</div>
-      </div>
-      <div class="mode-label">Choose your AI mode</div>
-      <div class="modebuttons">
-        <button class="modebutton active" id="chatModeButton" type="button" onclick="setNovaraMode('chat')">💬 AI Chat</button>
-        <button class="modebutton" id="teacherModeButton" type="button" onclick="setNovaraMode('teacher')">🎓 AI Teacher</button>
-      </div>
-      <h3 id="novaraModeText">AI Chat mode selected</h3>
-      <div id="novaraMessages" class="messages" aria-live="polite">
-        <p class="bot-message">Welcome to NOVARA AI! This is a demo preview. Ask a sample question to see how the interface works.</p>
-      </div>
-      <div class="chatinput">
-        <textarea id="novaraQuestion" placeholder="Ask NOVARA anything..." aria-label="Ask NOVARA anything"></textarea>
-        <button class="primary sendbutton" type="button" onclick="sendNovaraMessage()">Send Question <span aria-hidden="true">➤</span></button>
-      </div>
-      <div class="chat-note">Demo only: real AI responses are not connected yet.</div>
-    </div>
-  </section>
+<div class="stats">
+<div class="stat"><strong>01</strong><small>Personal learning</small></div>
+<div class="stat"><strong>24/7</strong><small>Learning access</small></div>
+<div class="stat"><strong>∞</strong><small>Possibilities</small></div>
+</div>
+</div>
 
-  <section id="start" class="wrap">
-    <div class="sectionhead">
-      <div class="eyebrow">The beginning</div>
-      <h2>Big goals. One step at a time.</h2>
-      <p>NOVARA AI is growing step by step. The next development stage is connecting a reliable AI tutor, accounts and saved learning progress.</p>
-      <p style="margin-top:14px;color:#c6c0ff;font-weight:750">Founded by SIJWAN MIR</p>
-    </div>
-  </section>
+<div class="visual">
+<div class="visual-top">
+<strong>✦ NOVARA AI</strong>
+<span class="status">● Learning active</span>
+</div>
+
+<div class="lesson">
+<small>YOUR LEARNING SPACE</small>
+<h3>Today's Learning Goal</h3>
+<p>Understand something new today.</p>
+<div class="progress"><div></div></div>
+</div>
+
+<div class="ai-answer">
+<strong>✦ Your AI Learning Companion</strong>
+<p style="margin-top:10px">Hello! I'm here to help you understand difficult topics, solve doubts and learn step by step.</p>
+</div>
+</div>
+</div>
+
+<!-- FEATURES -->
+<section class="container" id="features">
+<div class="section-title">
+<div class="label">WHAT WE OFFER</div>
+<h2>Everything You Need to Learn</h2>
+<p>One platform. Multiple ways to grow.</p>
+</div>
+
+<div class="cards">
+<div class="card"><div class="icon">✦</div><h3>AI Personal Teacher</h3><p>Learn difficult subjects with simple explanations.</p></div>
+<div class="card"><div class="icon">💬</div><h3>AI Doubt Solver</h3><p>Ask questions and understand answers step by step.</p></div>
+<div class="card"><div class="icon">📚</div><h3>Smart Notes</h3><p>Create useful notes and summaries for revision.</p></div>
+<div class="card"><div class="icon">🎯</div><h3>Practice & Quizzes</h3><p>Test your knowledge and improve your skills.</p></div>
+<div class="card"><div class="icon">📅</div><h3>Study Planner</h3><p>Organise your daily learning goals.</p></div>
+<div class="card"><div class="icon">🌍</div><h3>Language Learning</h3><p>Learn and explore different languages.</p></div>
+</div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="container" id="dashboard">
+<div class="dashboard">
+<div class="label">YOUR PERSONAL SPACE</div>
+<h2>Your Learning Journey Starts Here.</h2>
+<p>A single place to explore, learn and improve every day.</p>
+
+<div class="dashboard-grid">
+<div class="dash-item"><span>🎓</span><h3>AI Teacher</h3><p>Learn step by step.</p></div>
+<div class="dash-item"><span>📖</span><h3>My Notes</h3><p>Organise your knowledge.</p></div>
+<div class="dash-item"><span>🧠</span><h3>My Practice</h3><p>Test what you learned.</p></div>
+<div class="dash-item"><span>📈</span><h3>My Progress</h3><p>Track your improvement.</p></div>
+</div>
+</div>
+</section>
+
+<!-- AI TUTOR -->
+<section class="container" id="tutor">
+<div class="section-title">
+<div class="label">MEET YOUR AI COMPANION</div>
+<h2>Talk to NOVARA AI</h2>
+<p>Choose your learning mode and try the interface.</p>
+</div>
+
+<div class="chatbox">
+<h2>✦ NOVARA AI</h2>
+<div class="modes">
+<button class="mode active" id="chatMode" onclick="setMode('chat')">💬 AI Chat</button>
+<button class="mode" id="teacherMode" onclick="setMode('teacher')">🎓 AI Teacher</button>
+</div>
+
+<div id="modeTitle"><h3>AI Chat Mode</h3></div>
+
+<div class="messages" id="messages">
+<div class="message bot">Welcome to NOVARA AI! 👋<br>What would you like to learn today?</div>
+</div>
+
+<div class="chat-input">
+<input id="question" placeholder="Ask NOVARA anything...">
+<button class="btn" onclick="sendMessage()">Send ➤</button>
+</div>
+<p style="font-size:11px;margin-top:12px">Demo version: Real AI connection is not active yet.</p>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section class="container">
+<div class="section-title">
+<div class="label">OUR VISION</div>
+<h2>Education Without Limits.</h2>
+<p>Our mission is to make learning more understandable, accessible and engaging for students everywhere.</p>
+<br>
+<h3>Founded by SIJWAN MIR</h3>
+</div>
+</section>
+
 </main>
 
-<footer class="wrap footer">
-  <div><b>NOVARA AI</b><div>Founder: SIJWAN MIR</div></div>
-  <span>Learn anything. Understand everything.</span>
-  <span>Concept prototype · 2026</span>
+<footer>
+<strong>NOVARA AI</strong>
+<p>Learn Smarter. Grow Faster.</p>
+<p>© 2026 NOVARA AI. All rights reserved.</p>
 </footer>
 
 <script>
-let novaraMode = "chat";
+let currentMode="chat";
 
-function setNovaraMode(mode) {
-  novaraMode = mode;
-  document.getElementById("novaraModeText").textContent =
-    mode === "chat" ? "AI Chat mode selected" : "AI Teacher mode selected";
-  document.getElementById("chatModeButton").classList.toggle("active", mode === "chat");
-  document.getElementById("teacherModeButton").classList.toggle("active", mode === "teacher");
+function setMode(mode){
+currentMode=mode;
+document.getElementById("chatMode").classList.toggle("active",mode==="chat");
+document.getElementById("teacherMode").classList.toggle("active",mode==="teacher");
+document.getElementById("modeTitle").innerHTML=
+"<h3>"+(mode==="chat"?"AI Chat Mode":"AI Teacher Mode")+"</h3>";
 }
 
-function previewLearningSpace() {
-  const level = document.getElementById("level").value;
-  const language = document.getElementById("language").value;
-  document.getElementById("demoMessage").textContent =
-    "Preview selected: " + level + " · " + language + ". This is a demo; preferences are not saved.";
+function sendMessage(){
+const input=document.getElementById("question");
+const messages=document.getElementById("messages");
+const question=input.value.trim();
+if(!question)return;
+
+const user=document.createElement("div");
+user.className="message user";
+user.textContent="You: "+question;
+messages.appendChild(user);
+
+const bot=document.createElement("div");
+bot.className="message bot";
+bot.textContent=currentMode==="chat"
+?"NOVARA AI: This is a demo. Connect an AI backend to receive real answers."
+:"NOVARA AI Teacher: Your step-by-step AI teacher will be available after the AI connection is added.";
+
+messages.appendChild(bot);
+input.value="";
+messages.scrollTop=messages.scrollHeight;
 }
 
-function sendNovaraMessage() {
-  const input = document.getElementById("novaraQuestion");
-  const messages = document.getElementById("novaraMessages");
-  const question = input.value.trim();
-
-  if (!question) {
-    input.focus();
-    return;
-  }
-
-  const user = document.createElement("p");
-  user.className = "user-message";
-  user.textContent = "You: " + question;
-  messages.appendChild(user);
-
-  const reply = document.createElement("p");
-  reply.className = "bot-message";
-  reply.textContent = novaraMode === "chat"
-    ? "NOVARA AI: Demo mode. The real AI connection is not active yet."
-    : "NOVARA AI Teacher: Demo mode. Step-by-step AI teaching will be available after the AI connection is added.";
-  messages.appendChild(reply);
-
-  input.value = "";
-  messages.scrollTop = messages.scrollHeight;
-}
-
-document.getElementById("novaraQuestion").addEventListener("keydown", function(event) {
-  if (event.key === "Enter" && !event.shiftKey) {
-    event.preventDefault();
-    sendNovaraMessage();
-  }
+document.getElementById("question").addEventListener("keydown",function(e){
+if(e.key==="Enter")sendMessage();
 });
 </script>
+
 </body>
-                                      </html>
-                                                                  
+  </html>
+  
