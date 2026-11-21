@@ -1,732 +1,609 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080810">
-<title>NOVARA AI — Learn Beyond Limits</title>
+<meta name="theme-color" content="#09090e">
+<meta name="description" content="NOVARA AI — Think beyond. Create without limits.">
+<title>NOVARA AI — Intelligence Reimagined</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg:#080810;
-  --panel:#11111e;
-  --purple:#9b5cff;
-  --blue:#36cfff;
-  --text:#f6f3ff;
-  --muted:#9291a8;
-  --border:rgba(255,255,255,.09);
+  --bg:#09090e;
+  --panel:#101017;
+  --border:rgba(255,255,255,.075);
+  --text:#f3f1f8;
+  --muted:#858392;
+  --accent:#b69aff;
+  --gold:#d2b887;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
-
-html{scroll-behavior:smooth}
-
+*{box-sizing:border-box}
 body{
-  background:var(--bg);
+  margin:0;background:
+  radial-gradient(ellipse at 55% -20%,rgba(119,75,190,.16),transparent 42%),
+  var(--bg);
   color:var(--text);
-  font-family:Inter,sans-serif;
-  overflow-x:hidden;
+  font-family:'DM Sans',sans-serif;
+  height:100dvh;overflow:hidden
 }
+button,textarea{font:inherit}
+button{cursor:pointer}
+.app{display:flex;height:100dvh;width:100%}
 
-body:before{
-  content:"";
-  position:fixed;
-  width:500px;
-  height:500px;
-  background:#742dff;
-  filter:blur(180px);
-  opacity:.17;
-  top:-220px;
-  left:-180px;
-  pointer-events:none;
+/* SIDEBAR */
+.sidebar{
+  width:265px;min-width:265px;
+  background:rgba(12,12,18,.96);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  padding:20px 15px;z-index:20;
+  transition:transform .3s ease
 }
-
-body:after{
-  content:"";
-  position:fixed;
-  width:400px;
-  height:400px;
-  background:#008dff;
-  filter:blur(180px);
-  opacity:.12;
-  bottom:-200px;
-  right:-150px;
-  pointer-events:none;
+.brand{display:flex;align-items:center;gap:11px;padding:3px 8px 25px}
+.brand-symbol{
+  width:39px;height:39px;border-radius:13px;
+  display:grid;place-items:center;color:#17111f;
+  font-size:21px;font-weight:700;
+  background:linear-gradient(145deg,#e0c8ff,#9875d7);
+  box-shadow:0 0 25px rgba(169,127,235,.2)
 }
+.brand-name{font:700 20px 'Space Grotesk',sans-serif;letter-spacing:2px}
+.brand-sub{color:var(--muted);font-size:9px;letter-spacing:2.4px;margin-top:3px}
 
-button{font-family:inherit;cursor:pointer}
-
-.container{
-  width:min(1150px,92%);
-  margin:auto;
-  position:relative;
-  z-index:1;
+.new-chat{
+  border:1px solid rgba(182,154,255,.25);
+  background:linear-gradient(110deg,rgba(151,113,218,.16),rgba(182,154,255,.06));
+  color:#e8dcff;border-radius:12px;padding:13px;
+  text-align:left;font-weight:600;
+  display:flex;align-items:center;gap:11px;transition:.2s
 }
-
-/* NAVIGATION */
-
-nav{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:23px 0;
-  border-bottom:1px solid var(--border);
+.new-chat:hover{background:rgba(182,154,255,.2);border-color:var(--accent)}
+.side-label{
+  color:#777583;font-size:10px;letter-spacing:1.8px;
+  font-weight:700;margin:29px 9px 12px
 }
-
-.logo{
-  font-size:23px;
-  font-weight:900;
-  letter-spacing:2px;
-  background:linear-gradient(90deg,#fff,#a66cff,#3bd6ff);
-  -webkit-background-clip:text;
-  color:transparent;
+.history{flex:1;overflow-y:auto}
+.history-item{
+  display:flex;align-items:center;gap:9px;width:100%;
+  padding:11px 10px;color:#b8b6c2;border:0;
+  background:transparent;border-radius:9px;
+  text-align:left;font-size:12px;margin-bottom:3px
 }
-
-.nav-links{
-  display:flex;
-  gap:28px;
-  align-items:center;
+.history-item:hover,.history-item.active{background:#1a1923;color:white}
+.history-item span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side-bottom{border-top:1px solid var(--border);padding-top:15px}
+.profile{display:flex;align-items:center;gap:10px;padding:8px}
+.avatar{
+  width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#8e6ac8,#d1b6f7);
+  color:#17111f;font-weight:700
 }
+.profile-name{font-size:12px;font-weight:600}
+.profile-plan{color:var(--muted);font-size:10px;margin-top:3px}
 
-.nav-links a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:13px;
-  transition:.3s;
+/* MAIN */
+.main{flex:1;min-width:0;display:flex;flex-direction:column;position:relative}
+.topbar{
+  height:67px;min-height:67px;display:flex;
+  align-items:center;justify-content:space-between;
+  padding:0 27px;border-bottom:1px solid var(--border);
+  background:rgba(9,9,14,.65);backdrop-filter:blur(20px);z-index:5
 }
-
-.nav-links a:hover{color:white}
-
-.nav-btn{
-  background:linear-gradient(100deg,var(--purple),#586cff);
-  border:0;
-  color:white;
-  padding:12px 19px;
-  border-radius:10px;
-  font-weight:700;
+.top-left,.top-right{display:flex;align-items:center;gap:13px}
+.menu-btn{display:none;border:0;background:transparent;color:white;font-size:22px}
+.model-select{
+  border:1px solid var(--border);background:#15141d;
+  color:#e5e1ed;border-radius:9px;padding:8px 12px;font-size:12px
 }
-
-/* HERO */
-
-.hero{
-  min-height:590px;
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:55px;
-  align-items:center;
-  padding:75px 0;
+.online{display:flex;align-items:center;gap:7px;color:#a6a4b1;font-size:11px}
+.online-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#55d69a;box-shadow:0 0 10px #55d69a
 }
-
-.tag{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:9px 14px;
-  border:1px solid rgba(155,92,255,.35);
-  border-radius:30px;
-  color:#c8a7ff;
-  background:rgba(155,92,255,.08);
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:1px;
+.icon-btn{
+  border:1px solid var(--border);background:#15141d;color:#aaa7b5;
+  border-radius:9px;width:35px;height:35px;display:grid;place-items:center
 }
+.icon-btn:hover{color:white;border-color:#76619b}
 
-.hero h1{
-  font-size:clamp(43px,6vw,72px);
-  line-height:1.08;
-  letter-spacing:-3px;
-  margin:25px 0;
-}
-
-.gradient{
-  background:linear-gradient(100deg,#a96cff,#4acfff);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-
-.hero p{
-  color:var(--muted);
-  font-size:15px;
-  line-height:1.9;
-  max-width:490px;
-}
-
-.hero-actions{
-  display:flex;
-  gap:14px;
-  margin-top:30px;
-  flex-wrap:wrap;
-}
-
-.primary-btn{
-  padding:15px 23px;
-  border:0;
-  border-radius:11px;
-  color:white;
-  font-weight:800;
-  background:linear-gradient(110deg,#9655ff,#536fff);
-  box-shadow:0 8px 35px rgba(127,70,255,.3);
-}
-
-.secondary-btn{
-  padding:15px 23px;
-  border:1px solid var(--border);
-  border-radius:11px;
-  background:#ffffff08;
-  color:white;
-}
-
-/* DASHBOARD PREVIEW */
-
-.dashboard{
-  padding:23px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:22px;
-  background:linear-gradient(145deg,#171528,#101321);
-  box-shadow:0 25px 90px #0008;
-  animation:float 5s ease-in-out infinite;
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-12px)}
-}
-
-.dash-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:24px;
-}
-
-.dash-title{font-size:15px;font-weight:800}
-
-.online{
-  font-size:10px;
-  color:#69e6ac;
-  background:#69e6ac15;
-  padding:7px 10px;
-  border-radius:20px;
-}
-
+/* CHAT */
+.chat-scroll{flex:1;overflow-y:auto;scroll-behavior:smooth}
+.chat-content{width:100%;max-width:850px;margin:0 auto;padding:35px 28px}
 .welcome{
-  padding:22px;
-  border-radius:16px;
-  background:linear-gradient(120deg,#5725a5,#173b77);
-  margin-bottom:17px;
+  min-height:57vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:20px 0 35px;animation:appear .7s ease
 }
-
-.welcome small{color:#d4c4ff}
-
-.welcome h3{
-  margin-top:9px;
-  font-size:22px;
+@keyframes appear{
+  from{opacity:0;transform:translateY(13px)}
+  to{opacity:1;transform:translateY(0)}
 }
-
-.stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:13px;
+.orb{
+  width:78px;height:78px;border-radius:27px;
+  display:grid;place-items:center;font-size:38px;
+  color:#e8d9ff;
+  background:radial-gradient(circle at 30% 20%,#514078,#201a32 65%,#15121f);
+  border:1px solid rgba(193,164,255,.3);
+  box-shadow:0 0 65px rgba(141,98,212,.17),inset 0 0 25px rgba(201,176,255,.1);
+  margin-bottom:26px
 }
-
-.stat{
-  padding:17px;
-  background:#ffffff08;
-  border:1px solid var(--border);
-  border-radius:14px;
+.eyebrow{color:var(--gold);font-size:10px;font-weight:700;letter-spacing:3px;margin-bottom:15px}
+.welcome h1{
+  font:600 clamp(30px,5vw,48px) 'Space Grotesk',sans-serif;
+  letter-spacing:-1.8px;margin:0;line-height:1.16
 }
-
-.stat small{color:var(--muted);font-size:11px}
-
-.stat h2{
-  font-size:25px;
-  margin-top:9px;
+.welcome h1 span{
+  background:linear-gradient(100deg,#d9c4ff,#a887e8,#d5bd94);
+  -webkit-background-clip:text;background-clip:text;color:transparent
 }
-
-.progress{
-  height:6px;
-  background:#ffffff18;
-  border-radius:10px;
-  margin-top:12px;
-  overflow:hidden;
+.welcome p{color:#9693a2;font-size:14px;line-height:1.7;max-width:440px;margin:16px 0 28px}
+.suggestions{
+  width:100%;max-width:650px;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px
 }
-
-.progress span{
-  display:block;
-  width:75%;
-  height:100%;
-  background:linear-gradient(90deg,#a35aff,#36cfff);
-  border-radius:10px;
+.suggestion{
+  border:1px solid var(--border);border-radius:13px;
+  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+  text-align:left;padding:16px;color:#e9e5f0;transition:.2s
 }
-
-.ai-status{
-  margin-top:16px;
-  padding:15px;
-  background:#9b5cff12;
-  border:1px solid #9b5cff35;
-  border-radius:13px;
-  font-size:12px;
-  color:#d9c3ff;
+.suggestion:hover{
+  border-color:rgba(182,154,255,.45);
+  background:rgba(153,118,207,.1);transform:translateY(-2px)
 }
+.suggestion strong{display:block;font-size:12px;margin-bottom:6px}
+.suggestion small{color:#858291;font-size:11px;line-height:1.5}
 
-/* SECTIONS */
-
-section{padding:65px 0}
-
-.section-heading{
-  text-align:center;
-  margin-bottom:40px;
+/* MESSAGES */
+.message{display:flex;gap:14px;margin:26px 0;animation:appear .25s ease}
+.message.user{justify-content:flex-end}
+.message-avatar{
+  width:31px;height:31px;min-width:31px;border-radius:11px;
+  display:grid;place-items:center;font-size:14px;
+  background:#211b30;border:1px solid rgba(182,154,255,.18);color:#d6c2ff
 }
-
-.section-heading h2{
-  font-size:35px;
-  margin-bottom:13px;
+.message.user .message-avatar{order:2;background:#30283e}
+.message-body{max-width:85%;min-width:0}
+.message.user .message-body{
+  background:#1d1b26;border:1px solid var(--border);
+  border-radius:17px 5px 17px 17px;padding:13px 16px
 }
-
-.section-heading p{
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.8;
+.message-name{font-size:11px;color:#b9a2e9;font-weight:700;margin:2px 0 9px;letter-spacing:.4px}
+.message-text{color:#dedbe5;font-size:13.5px;line-height:1.85;overflow-wrap:anywhere}
+.message-text p{margin:0 0 11px}
+.message-text p:last-child{margin-bottom:0}
+.message-text pre{
+  overflow-x:auto;background:#09090e;border:1px solid #302b3c;
+  border-radius:10px;padding:15px;color:#d7c7fa;
+  font:12px/1.7 monospace;white-space:pre
 }
-
-.features{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+.message-actions{display:flex;gap:7px;margin-top:10px}
+.message-actions button{border:0;background:transparent;color:#777483;padding:5px 7px;font-size:11px}
+.message-actions button:hover{color:#d9c4ff}
+.typing{display:flex;gap:5px;padding:10px 0}
+.typing i{
+  width:6px;height:6px;border-radius:50%;background:#b69aff;
+  animation:pulse 1s infinite alternate
 }
+.typing i:nth-child(2){animation-delay:.2s}
+.typing i:nth-child(3){animation-delay:.4s}
+@keyframes pulse{from{opacity:.25;transform:translateY(0)}to{opacity:1;transform:translateY(-4px)}}
 
-.feature{
-  padding:27px;
-  border:1px solid var(--border);
-  border-radius:17px;
-  background:linear-gradient(145deg,#151525,#0e0e19);
-  transition:.3s;
+/* COMPOSER */
+.composer-area{
+  padding:12px 24px 17px;
+  background:linear-gradient(transparent,rgba(9,9,14,.96) 22%)
 }
-
-.feature:hover{
-  transform:translateY(-7px);
-  border-color:#995bff80;
+.composer{
+  max-width:790px;margin:0 auto;
+  border:1px solid rgba(182,154,255,.2);
+  background:linear-gradient(145deg,#17151f,#111119);
+  border-radius:19px;padding:13px 14px 10px;
+  box-shadow:0 12px 50px rgba(0,0,0,.25);transition:.2s
 }
-
-.feature-icon{
-  width:47px;
-  height:47px;
-  display:grid;
-  place-items:center;
-  border-radius:13px;
-  background:linear-gradient(135deg,#8c48ff35,#28bfff25);
-  font-size:23px;
-  margin-bottom:20px;
+.composer:focus-within{
+  border-color:rgba(182,154,255,.55);
+  box-shadow:0 0 0 3px rgba(182,154,255,.055),0 15px 50px #0005
 }
-
-.feature h3{font-size:17px;margin-bottom:12px}
-
-.feature p{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.8;
+#userInput{
+  width:100%;min-height:28px;max-height:160px;resize:none;
+  border:0;outline:0;background:transparent;color:white;
+  font-size:13px;line-height:1.6;padding:3px 4px 9px
 }
-
-/* AI TUTOR */
-
-.tutor{
-  max-width:760px;
-  margin:auto;
-  padding:25px;
-  border:1px solid var(--border);
-  border-radius:20px;
-  background:#11111e;
-}
-
-.tutor-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  margin-bottom:20px;
-}
-
-.mode-buttons{
-  display:flex;
-  gap:8px;
-}
-
-.mode-buttons button{
-  background:#ffffff0b;
-  border:1px solid var(--border);
-  padding:9px 13px;
-  border-radius:9px;
-  color:var(--muted);
-  font-size:11px;
-}
-
-.mode-buttons button.active{
-  color:white;
-  background:#8c4dff35;
-  border-color:#a46aff;
-}
-
-.chat-area{
-  min-height:190px;
-  max-height:300px;
-  overflow-y:auto;
-  padding:15px;
-  background:#090912;
-  border-radius:13px;
-  margin-bottom:14px;
-}
-
-.message{
-  padding:13px 15px;
-  border-radius:12px;
-  margin-bottom:12px;
-  max-width:90%;
-  font-size:13px;
-  line-height:1.7;
-  background:#ffffff0c;
-}
-
-.message.user{
-  margin-left:auto;
-  background:#7943cf35;
-}
-
-.chat-input{
-  display:flex;
-  gap:10px;
-}
-
-.chat-input input{
-  flex:1;
-  min-width:0;
-  padding:15px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  background:#080810;
-  color:white;
-  outline:none;
-}
-
-.chat-input input:focus{
-  border-color:#9b5cff;
-}
-
+#userInput::placeholder{color:#777483}
+.composer-bottom{display:flex;justify-content:space-between;align-items:center}
+.composer-tools{display:flex;gap:7px}
+.tool-btn{border:0;background:transparent;color:#8c8998;border-radius:8px;padding:7px 9px;font-size:11px}
+.tool-btn:hover{background:#272331;color:white}
 .send-btn{
-  padding:0 19px;
-  background:linear-gradient(110deg,#9655ff,#536fff);
-  border:0;
-  border-radius:10px;
-  color:white;
-  font-weight:700;
+  width:36px;height:36px;border:0;border-radius:11px;
+  background:linear-gradient(135deg,#e1ceff,#a889df);
+  color:#1b1426;font-size:19px;font-weight:700;
+  box-shadow:0 4px 18px rgba(167,130,225,.2);transition:.2s
 }
+.send-btn:hover{transform:translateY(-2px)}
+.send-btn:disabled{opacity:.45;cursor:not-allowed}
+.disclaimer{text-align:center;color:#666473;font-size:10px;margin-top:11px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:15}
 
-/* MISSION */
-
-.mission{
-  text-align:center;
-  padding:65px 25px;
-  border:1px solid #9b5cff30;
-  border-radius:22px;
-  background:linear-gradient(120deg,#30145b55,#103b6155);
-}
-
-.mission h2{
-  font-size:34px;
-  margin-bottom:17px;
-}
-
-.mission p{
-  color:var(--muted);
-  max-width:620px;
-  margin:auto;
-  line-height:1.9;
-  font-size:14px;
-}
-
-/* FOOTER */
-
-footer{
-  border-top:1px solid var(--border);
-  padding:28px 0;
-  margin-top:60px;
-  color:var(--muted);
-  font-size:12px;
-  text-align:center;
-  line-height:2;
-}
-
-/* MOBILE */
-
-@media(max-width:800px){
-  .nav-links{display:none}
-  .hero{
-    grid-template-columns:1fr;
-    gap:35px;
-    padding:55px 0;
+@media(max-width:760px){
+  .sidebar{
+    position:fixed;top:0;bottom:0;left:0;
+    transform:translateX(-105%);box-shadow:20px 0 70px #0008
   }
-  .hero h1{letter-spacing:-2px}
-  .features{grid-template-columns:1fr}
-  .dashboard{max-width:500px;width:100%;margin:auto}
-  .section-heading h2{font-size:28px}
-  .tutor-header{align-items:flex-start;flex-direction:column}
-  .mission h2{font-size:27px}
+  .sidebar.open{transform:translateX(0)}
+  .overlay.show{display:block}
+  .menu-btn{display:block}
+  .topbar{padding:0 14px}
+  .chat-content{padding:20px 15px}
+  .welcome{min-height:53vh}
+  .welcome p{font-size:12px}
+  .suggestions{gap:8px}
+  .suggestion{padding:12px}
+  .suggestion small{font-size:10px}
+  .composer-area{padding:8px 11px 12px}
+  .online{display:none}
+  .message-body{max-width:88%}
 }
-
-@media(max-width:400px){
-  .hero h1{font-size:41px}
-  .dashboard{padding:15px}
-  .feature{padding:22px}
-  .chat-input{gap:6px}
-  .send-btn{padding:0 12px}
+@media(max-width:390px){
+  .suggestions{grid-template-columns:1fr}
+  .welcome{padding-top:25px}
+  .welcome h1{font-size:32px}
+  .model-select{font-size:10px}
 }
 </style>
 </head>
 
 <body>
-
-<div class="container">
-
-<nav>
-  <div class="logo">NOVARA AI</div>
-
-  <div class="nav-links">
-    <a href="#home">Home</a>
-    <a href="#features">Features</a>
-    <a href="#tutor">AI Tutor</a>
-    <a href="#about">About</a>
-  </div>
-
-  <button class="nav-btn" onclick="document.getElementById('tutor').scrollIntoView({behavior:'smooth'})">
-    Explore AI
-  </button>
-</nav>
-
-<!-- HERO -->
-
-<div class="hero" id="home">
-
-  <div>
-    <div class="tag">✦ YOUR PERSONAL LEARNING WORLD</div>
-
-    <h1>
-      Learn Beyond<br>
-      <span class="gradient">Limits.</span>
-    </h1>
-
-    <p>
-      Meet a smarter way to learn. Explore concepts, ask questions
-      and grow your knowledge with your personal AI learning companion.
-    </p>
-
-    <div class="hero-actions">
-      <button class="primary-btn" onclick="document.getElementById('tutor').scrollIntoView({behavior:'smooth'})">
-        Start Learning →
-      </button>
-
-      <button class="secondary-btn" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
-        Explore Features
-      </button>
-    </div>
-  </div>
-
-  <div class="dashboard">
-
-    <div class="dash-top">
-      <div class="dash-title">Your Learning Space</div>
-      <div class="online">● ONLINE DEMO</div>
-    </div>
-
-    <div class="welcome">
-      <small>WELCOME TO NOVARA</small>
-      <h3>Think. Learn. Evolve.</h3>
-    </div>
-
-    <div class="stats">
-      <div class="stat">
-        <small>Learning Progress</small>
-        <h2>75%</h2>
-        <div class="progress"><span></span></div>
-      </div>
-
-      <div class="stat">
-        <small>Learning Mode</small>
-        <h2>AI ✦</h2>
-        <div class="progress"><span style="width:90%"></span></div>
-      </div>
-    </div>
-
-    <div class="ai-status">
-      ✨ Your personal learning experience starts here.
-    </div>
-
-  </div>
-
-</div>
-
-<!-- FEATURES -->
-
-<section id="features">
-
-  <div class="section-heading">
-    <h2>Everything You Need to <span class="gradient">Grow</span></h2>
-    <p>A smarter learning experience designed around you.</p>
-  </div>
-
-  <div class="features">
-
-    <div class="feature">
-      <div class="feature-icon">🧠</div>
-      <h3>AI Learning Assistant</h3>
-      <p>Explore concepts and get help understanding difficult topics through a simple learning interface.</p>
-    </div>
-
-    <div class="feature">
-      <div class="feature-icon">🎓</div>
-      <h3>Personal AI Teacher</h3>
-      <p>Learn at your own pace with a teaching experience designed to make concepts easier to understand.</p>
-    </div>
-
-    <div class="feature">
-      <div class="feature-icon">🌍</div>
-      <h3>Learn Your Way</h3>
-      <p>Build a learning experience around your interests, goals and preferred language.</p>
-    </div>
-
-    <div class="feature">
-      <div class="feature-icon">⚡</div>
-      <h3>Simple Experience</h3>
-      <p>A clean and focused interface that helps you spend more time learning.</p>
-    </div>
-
-    <div class="feature">
-      <div class="feature-icon">🚀</div>
-      <h3>Grow Every Day</h3>
-      <p>Discover new ideas, develop skills and keep moving towards your goals.</p>
-    </div>
-
-    <div class="feature">
-      <div class="feature-icon">💡</div>
-      <h3>Explore Knowledge</h3>
-      <p>Stay curious and explore topics that help you understand the world around you.</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- AI TUTOR -->
-
-<section id="tutor">
-
-  <div class="section-heading">
-    <h2>Meet Your <span class="gradient">AI Companion</span></h2>
-    <p>Ask a question and explore the NOVARA learning demo.</p>
-  </div>
-
-  <div class="tutor">
-
-    <div class="tutor-header">
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-symbol">✦</div>
       <div>
-        <h3>NOVARA AI Assistant</h3>
-        <small style="color:#9291a8">Your learning companion</small>
-      </div>
-
-      <div class="mode-buttons">
-        <button class="active" id="chatMode" onclick="setMode('chat')">AI Chat</button>
-        <button id="teacherMode" onclick="setMode('teacher')">AI Teacher</button>
+        <div class="brand-name">NOVARA</div>
+        <div class="brand-sub">ARTIFICIAL INTELLIGENCE</div>
       </div>
     </div>
 
-    <div class="chat-area" id="chatArea">
-      <div class="message">
-        👋 Hello! Welcome to NOVARA AI. What would you like to learn today?
+    <button class="new-chat" id="newChatBtn">
+      <span style="font-size:19px">＋</span> New conversation
+    </button>
+
+    <div class="side-label">YOUR WORKSPACE</div>
+    <div class="history" id="historyList"></div>
+
+    <div class="side-bottom">
+      <div class="profile">
+        <div class="avatar">N</div>
+        <div>
+          <div class="profile-name">NOVARA USER</div>
+          <div class="profile-plan">Personal workspace</div>
+        </div>
       </div>
     </div>
+  </aside>
 
-    <div class="chat-input">
-      <input id="userInput" type="text" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendMessage()">
-      <button class="send-btn" onclick="sendMessage()">Send ↑</button>
-    </div>
+  <div class="overlay" id="overlay"></div>
 
-    <p style="color:#77768c;font-size:10px;margin-top:12px">
-      Demo interface · Live AI connection is not configured yet.
-    </p>
+  <main class="main">
+    <header class="topbar">
+      <div class="top-left">
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+        <select class="model-select" aria-label="AI model">
+          <option>NOVARA Intelligence</option>
+        </select>
+      </div>
+      <div class="top-right">
+        <div class="online"><span class="online-dot"></span> AI SYSTEM ONLINE</div>
+        <button class="icon-btn" id="clearBtn" title="New chat">＋</button>
+      </div>
+    </header>
 
-  </div>
-</section>
+    <section class="chat-scroll" id="chatScroll">
+      <div class="chat-content" id="chatContent"></div>
+    </section>
 
-<!-- ABOUT -->
-
-<section id="about">
-
-  <div class="mission">
-    <div class="tag">✦ OUR MISSION</div>
-    <h2 style="margin-top:22px">Knowledge Without <span class="gradient">Limits.</span></h2>
-
-    <p>
-      NOVARA AI is built around one simple idea:
-      learning should be accessible, engaging and easier to understand.
-      Our mission is to help curious minds explore their potential
-      and build a better future through knowledge.
-    </p>
-
-    <p style="margin-top:25px;color:#c5a5ff;font-weight:700">
-      Founded by SIJWAN MIR
-    </p>
-  </div>
-
-</section>
-
-<footer>
-  <div class="logo">NOVARA AI</div>
-  <p>Learn Smarter. Grow Faster.</p>
-  <p>© 2026 NOVARA AI. All rights reserved.</p>
-</footer>
-
+    <footer class="composer-area">
+      <div class="composer">
+        <textarea id="userInput" rows="1" placeholder="Message NOVARA AI..." aria-label="Message NOVARA AI"></textarea>
+        <div class="composer-bottom">
+          <div class="composer-tools">
+            <button class="tool-btn" type="button" title="Attach files">＋ Attach</button>
+            <button class="tool-btn" type="button" title="Multilingual chat">◎ All languages</button>
+          </div>
+          <button class="send-btn" id="sendBtn" aria-label="Send message">↑</button>
+        </div>
+      </div>
+      <div class="disclaimer">NOVARA AI can make mistakes. Verify important information.</div>
+    </footer>
+  </main>
 </div>
 
 <script>
-let currentMode = "chat";
+const API_URL = "https://novara-ai-api.sijumir14.workers.dev/chat";
 
-function setMode(mode){
-  currentMode = mode;
+const chatContent = document.getElementById("chatContent");
+const chatScroll = document.getElementById("chatScroll");
+const input = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const historyList = document.getElementById("historyList");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
 
-  document.getElementById("chatMode").classList.toggle("active",mode==="chat");
-  document.getElementById("teacherMode").classList.toggle("active",mode==="teacher");
+let conversations = [];
+let activeId = null;
+let isSending = false;
 
-  const area = document.getElementById("chatArea");
-
-  area.innerHTML = mode==="chat"
-    ? '<div class="message">💬 AI Chat mode selected. What would you like to explore?</div>'
-    : '<div class="message">🎓 AI Teacher mode selected. Tell me which topic you want to understand.</div>';
+function makeId(){
+  return Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 }
 
-function sendMessage(){
-  const input = document.getElementById("userInput");
-  const area = document.getElementById("chatArea");
-  const question = input.value.trim();
+function saveData(){
+  try{
+    localStorage.setItem("novara_conversations",JSON.stringify(conversations));
+  }catch(e){console.warn("Could not save chat history",e);}
+}
 
-  if(!question)return;
+function loadData(){
+  try{
+    const saved=JSON.parse(localStorage.getItem("novara_conversations")||"[]");
+    if(Array.isArray(saved))conversations=saved;
+  }catch(e){conversations=[];}
+  renderHistory();
+}
 
-  const userMessage = document.createElement("div");
-  userMessage.className = "message user";
-  userMessage.textContent = question;
-  area.appendChild(userMessage);
+function activeChat(){
+  return conversations.find(c=>c.id===activeId);
+}
 
-  const reply = document.createElement("div");
-  reply.className = "message";
+function createChat(){
+  const chat={id:makeId(),title:"New conversation",messages:[]};
+  conversations.unshift(chat);
+  activeId=chat.id;
+  saveData();
+  renderHistory();
+  renderChat();
+  closeMobileMenu();
+  input.focus();
+}
 
-  reply.textContent = currentMode==="teacher"
-    ? "🎓 Teacher demo: Your question is interesting! A real AI connection will be needed to explain this topic in detail."
-    : "✨ NOVARA demo: Thanks for your question! A real AI connection will be needed to generate a live answer.";
+function selectChat(id){
+  activeId=id;
+  renderHistory();
+  renderChat();
+  closeMobileMenu();
+}
 
-  area.appendChild(reply);
+function renderHistory(){
+  historyList.replaceChildren();
+  conversations.forEach(chat=>{
+    const button=document.createElement("button");
+    button.className="history-item"+(chat.id===activeId?" active":"");
+    const icon=document.createElement("span");
+    icon.textContent="◷";
+    const title=document.createElement("span");
+    title.textContent=chat.title||"New conversation";
+    button.append(icon,title);
+    button.addEventListener("click",()=>selectChat(chat.id));
+    historyList.appendChild(button);
+  });
+}
 
+function showWelcome(){
+  const welcome=document.createElement("div");
+  welcome.className="welcome";
+  welcome.innerHTML=`
+    <div class="orb">✦</div>
+    <div class="eyebrow">THE NOVARA EXPERIENCE</div>
+    <h1>Think beyond.<br><span>Create without limits.</span></h1>
+    <p>Your ideas deserve a smarter space. Ask questions, explore new possibilities and bring your imagination to life.</p>
+    <div class="suggestions">
+      <button class="suggestion" data-prompt="Explain artificial intelligence in simple words.">
+        <strong>✧ Explore an idea</strong>
+        <small>Understand complex topics in simple language.</small>
+      </button>
+      <button class="suggestion" data-prompt="Help me create a professional website.">
+        <strong>⌘ Build something</strong>
+        <small>Turn your ideas into practical projects.</small>
+      </button>
+      <button class="suggestion" data-prompt="Help me write a creative and professional introduction.">
+        <strong>✎ Create content</strong>
+        <small>Write, brainstorm and improve your ideas.</small>
+      </button>
+      <button class="suggestion" data-prompt="Teach me an interesting new topic today.">
+        <strong>◇ Learn something new</strong>
+        <small>Discover knowledge and new perspectives.</small>
+      </button>
+    </div>
+  `;
+  welcome.querySelectorAll("[data-prompt]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      input.value=button.dataset.prompt;
+      sendMessage();
+    });
+  });
+  chatContent.appendChild(welcome);
+}
+
+function addTextWithBasicFormatting(container,text){
+  const blocks=String(text).split(/```/);
+  blocks.forEach((block,index)=>{
+    if(index%2===1){
+      const pre=document.createElement("pre");
+      const code=document.createElement("code");
+      const firstLineBreak=block.indexOf("\n");
+      code.textContent=firstLineBreak>=0?block.slice(firstLineBreak+1):block;
+      pre.appendChild(code);
+      container.appendChild(pre);
+      return;
+    }
+    block.split("\n").forEach(line=>{
+      const p=document.createElement("p");
+      p.textContent=line||"\u00a0";
+      container.appendChild(p);
+    });
+  });
+}
+
+function renderMessage(message){
+  const row=document.createElement("div");
+  row.className="message "+(message.role==="user"?"user":"assistant");
+
+  const avatar=document.createElement("div");
+  avatar.className="message-avatar";
+  avatar.textContent=message.role==="user"?"U":"✦";
+
+  const body=document.createElement("div");
+  body.className="message-body";
+
+  if(message.role==="assistant"){
+    const name=document.createElement("div");
+    name.className="message-name";
+    name.textContent="NOVARA";
+    body.appendChild(name);
+  }
+
+  const content=document.createElement("div");
+  content.className="message-text";
+  addTextWithBasicFormatting(content,message.content);
+  body.appendChild(content);
+
+  if(message.role==="assistant"){
+    const actions=document.createElement("div");
+    actions.className="message-actions";
+    const copy=document.createElement("button");
+    copy.textContent="▢ Copy";
+    copy.addEventListener("click",async()=>{
+      try{
+        await navigator.clipboard.writeText(message.content);
+        copy.textContent="✓ Copied";
+        setTimeout(()=>copy.textContent="▢ Copy",1500);
+      }catch(e){copy.textContent="Copy unavailable";}
+    });
+    actions.appendChild(copy);
+    body.appendChild(actions);
+  }
+
+  row.append(avatar,body);
+  chatContent.appendChild(row);
+}
+
+function renderChat(){
+  chatContent.replaceChildren();
+  const chat=activeChat();
+  if(!chat||chat.messages.length===0){
+    showWelcome();
+  }else{
+    chat.messages.forEach(renderMessage);
+  }
+  scrollToBottom();
+}
+
+function scrollToBottom(){
+  requestAnimationFrame(()=>{chatScroll.scrollTop=chatScroll.scrollHeight;});
+}
+
+function showTyping(){
+  const row=document.createElement("div");
+  row.className="message";
+  row.id="typingIndicator";
+  const avatar=document.createElement("div");
+  avatar.className="message-avatar";
+  avatar.textContent="✦";
+  const body=document.createElement("div");
+  body.className="message-body";
+  const name=document.createElement("div");
+  name.className="message-name";
+  name.textContent="NOVARA";
+  const dots=document.createElement("div");
+  dots.className="typing";
+  dots.innerHTML="<i></i><i></i><i></i>";
+  body.append(name,dots);
+  row.append(avatar,body);
+  chatContent.appendChild(row);
+  scrollToBottom();
+}
+
+function removeTyping(){
+  document.getElementById("typingIndicator")?.remove();
+}
+
+async function sendMessage(){
+  const text=input.value.trim();
+  if(!text||isSending)return;
+  if(!activeChat())createChat();
+
+  const chat=activeChat();
+  if(!chat)return;
+
+  isSending=true;
+  sendBtn.disabled=true;
+
+  if(chat.messages.length===0){
+    chat.title=text.length>34?text.slice(0,34)+"...":text;
+    renderHistory();
+  }
+
+  chat.messages.push({role:"user",content:text});
   input.value="";
-  area.scrollTop=area.scrollHeight;
-}
-</script>
+  input.style.height="auto";
+  saveData();
+  renderChat();
+  showTyping();
 
-</body>
-  </html>
+  try{
+    const messages=chat.messages.slice(-20).map(message=>({
+      role:message.role,
+      content:message.content
+    }));
+
+    const response=await fetch(API_URL,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({messages})
+    });
+
+    if(!response.ok)throw new Error("Server returned "+response.status);
+
+    const data=await response.json();
+    if(!data.reply||typeof data.reply!=="string"){
+      throw new Error("The AI response was empty.");
+    }
+
+    removeTyping();
+    chat.messages.push({role:"assistant",content:data.reply});
+    saveData();
+    renderChat();
+
+  }catch(error){
+    console.error("NOVARA API error:",error);
+    removeTyping();
+    chat.messages.push({
+      role:"assistant",
+      content:"I'm having trouble connecting right now. Please check your internet connection and try again."
+    });
+    saveData();
+    renderChat();
+  }finally{
+    isSending=false;
+    sendBtn.disabled=false;
+    input.focus();
+  }
+}
+
+function closeMobileMenu(){
+  sidebar.classList.remove("open");
+  overlay.classList.remove("show");
+}
+
+document.getElementById("newChatBtn").addEventListener("click",createChat);
+document.getElementById("clearBtn").addEventListener("click",createChat);
+sendBtn.addEventListener("click",sendMessage);
+
+input.addEventListener("keydown",event=>{
+  if(event.key==="Enter"&&!event.shiftKey){
+    event.preventDefault()
